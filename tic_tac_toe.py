@@ -6,13 +6,6 @@ import random
 
 
 def display_board(board):
-    # clearing output (?)
-    # import platform
-    # import os
-    # if platform.system() == 'Windows':
-    #     os.system('cls')
-    # else:
-    #     os.system('clear')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
 
     print('-----------')
@@ -100,6 +93,12 @@ def replay():
 
 # Step 10: Running game
 
+def make_player_actions(player, player_marker):
+    display_board(theBoard)
+    # choose position of a marker
+    position = player_choice(theBoard)
+    # board[position] = marker
+    place_marker(theBoard, player_marker, position)
 
 print('Welcome to Tic Tac Toe!')
 
@@ -114,17 +113,14 @@ while True:
 
     while game_on:
         if turn == 'Player 1':
-            # Player1's turn.
 
-            display_board(theBoard)
-            # choose position of a marker
-            position = player_choice(theBoard)
-            # board[position] = marker
-            place_marker(theBoard, player1_marker, position)
+            player = 'Player 1'
+
+            make_player_actions(player, player1_marker)
 
             if win_check(theBoard, player1_marker):
                 display_board(theBoard)
-                print('Congratulations! Player 1 won the game!')
+                print('Congratulations! %s won the game!' % player)
                 game_on = False
             else:
                 if full_board_check(theBoard):
@@ -135,15 +131,13 @@ while True:
                     turn = 'Player 2'
 
         else:
-            # Player2's turn.
+            player = 'Player 2'
 
-            display_board(theBoard)
-            position = player_choice(theBoard)
-            place_marker(theBoard, player2_marker, position)
+            make_player_actions(player, player2_marker)
 
             if win_check(theBoard, player2_marker):
                 display_board(theBoard)
-                print('Congrats, Player 2 has won!')
+                print('Congratulations! %s won the game!' % player)
                 game_on = False
             else:
                 if full_board_check(theBoard):
@@ -154,4 +148,5 @@ while True:
                     turn = 'Player 1'
 
     if not replay():
+        print ("Thanks for playing")
         break
